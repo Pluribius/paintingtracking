@@ -5,6 +5,10 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Float, useTexture, Text, Html } from "@react-three/drei";
 import * as THREE from "three";
 
+const isProd = process.env.NODE_ENV !== 'development';
+// Hardcoded base path for GitHub Pages to ensure reliability across build environments
+const BASE_PATH = (typeof window !== 'undefined' && window.location.host.includes('localhost')) ? '' : '/paintingtracking';
+
 function DebugHUD() {
   const { camera, mouse, viewport } = useThree();
   const zoomRef = useRef<HTMLSpanElement>(null!);
@@ -161,7 +165,7 @@ function EyesFollowTarget({ paintingTexture, eyeTexture, backgroundTexture, whit
         <Text
           fontSize={0.25}
           color="#EB3E22"
-          font="/fonts/PlayfairDisplay-Bold.ttf"
+          font={`${BASE_PATH}/fonts/PlayfairDisplay-Bold.ttf`}
           anchorX="center"
           anchorY="middle"
         >
@@ -173,7 +177,7 @@ function EyesFollowTarget({ paintingTexture, eyeTexture, backgroundTexture, whit
         <Text
           fontSize={0.25}
           color="#EB3E22"
-          font="/fonts/PlayfairDisplay-Bold.ttf"
+          font={`${BASE_PATH}/fonts/PlayfairDisplay-Bold.ttf`}
           anchorX="center"
           anchorY="middle"
         >
@@ -217,9 +221,6 @@ function EyesFollowTarget({ paintingTexture, eyeTexture, backgroundTexture, whit
 }
 
 function MainScene() {
-  const isProd = process.env.NODE_ENV === 'production';
-  const BASE_PATH = isProd ? '/paintingtracking' : '';
-
   const [painting, eye, texture, whiteBg] = useTexture([
     `${BASE_PATH}/girl_eyeless.png`,
     `${BASE_PATH}/eye.png`,
