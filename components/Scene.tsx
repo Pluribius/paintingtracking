@@ -217,11 +217,14 @@ function EyesFollowTarget({ paintingTexture, eyeTexture, backgroundTexture, whit
 }
 
 function MainScene() {
+  const isProd = process.env.NODE_ENV === 'production';
+  const BASE_PATH = isProd ? '/paintingtracking' : '';
+
   const [painting, eye, texture, whiteBg] = useTexture([
-    "/girl_eyeless.png",
-    "/eye.png",
-    "/texture.png",
-    "/white_background.jpg"
+    `${BASE_PATH}/girl_eyeless.png`,
+    `${BASE_PATH}/eye.png`,
+    `${BASE_PATH}/texture.png`,
+    `${BASE_PATH}/white_background.jpg`
   ]);
   return (
     <EyesFollowTarget
